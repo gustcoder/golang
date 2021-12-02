@@ -14,6 +14,6 @@ func main() {
 	texto := "Dentro da função main"
 	fmt.Println(texto)
 
-	closure := closure()
-	closure()
+	newClosure := closure()
+	newClosure()
 }
