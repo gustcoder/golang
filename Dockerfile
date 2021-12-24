@@ -1,9 +1,7 @@
-FROM golang:1.15
+FROM golang:1.17.4-alpine
 
-WORKDIR /app
+WORKDIR /var/www/app
 
 COPY . .
 
-RUN GOOS=linux go build -ldflags="-s -w"
-
-CMD ["./app"]
+CMD tail -f /dev/null
