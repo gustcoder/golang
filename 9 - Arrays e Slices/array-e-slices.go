@@ -41,8 +41,8 @@ func main() {
 	fmt.Println(len(slice3))
 	fmt.Println(cap(slice3))
 
-	slice4 := make([]int)
-	fmt.Println(slice4)
+	slice4 := make([]int, 5)
+	fmt.Println("Slice 4 (make): ", slice4)
 
 	slice4 = append(slice4, 10)
 	fmt.Println(len(slice4))
