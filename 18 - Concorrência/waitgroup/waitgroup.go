@@ -2,12 +2,25 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
 func main() {
-	escrever("Olá Mundo!!!") //goroutine - executa esta funcao mas não precisa esperar ela terminar para ir pra proxima
-	escrever("Programando em Go!")
+	var waitGroup sync.WaitGroup
+
+	waitGroup.Add(2)
+
+	go func() {
+		escrever("Olá Mundo!!!") //goroutine - executa esta funcao mas não precisa esperar ela terminar para ir pra proxima
+		waitGroup.Done()
+	}()
+	go func() {
+		escrever("Programando em Go!")
+		waitGroup.Done()
+	}()
+
+	waitGroup.Wait()
 }
 
 func escrever(texto string) {
