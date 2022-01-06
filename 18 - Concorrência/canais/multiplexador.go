@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func main() {
 	canal := multiplex(escrever("Canal 1"), escrever("Canal 2"))
@@ -33,6 +37,7 @@ func escrever(text string) <-chan string {
 	go func() {
 		for {
 			canal <- fmt.Sprintf("Texto: %s", text)
+			time.Sleep(time.Millisecond * time.Duration(rand.Intn(2000)))
 		}
 	}()
 
