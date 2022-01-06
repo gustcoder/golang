@@ -10,12 +10,16 @@ func main() {
 
 	go escrever("Olá mundo", canal)
 
-	for {
-		mensagem, canalAberto := <-canal
-		if !canalAberto {
-			break
-		}
+	// for {
+	// 	mensagem, canalAberto := <-canal
+	// 	if !canalAberto {
+	// 		break
+	// 	}
 
+	// 	fmt.Println(mensagem)
+	// }
+
+	for mensagem := range canal {
 		fmt.Println(mensagem)
 	}
 }
