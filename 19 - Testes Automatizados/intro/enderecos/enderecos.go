@@ -6,7 +6,7 @@ import (
 
 // CheckTipoEndereco verifica tipo de endereco
 func CheckTipoEndereco(endereco string) string {
-	tiposValidos := []string{"Rua", "Avenida", "Estradas", "Rodovia"}
+	tiposValidos := []string{"Rua", "Avenida", "Estrada", "Rodovia"}
 
 	tipoEndereco := strings.Split(endereco, " ")[0]
 
@@ -18,7 +18,7 @@ func CheckTipoEndereco(endereco string) string {
 	}
 
 	if tipoValido {
-		return strings.Title(tipoEndereco) // ucfirst
+		return strings.Title(strings.ToLower(tipoEndereco)) // ucfirst
 	}
 
 	return "Tipo inválido"
