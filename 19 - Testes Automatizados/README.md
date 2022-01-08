@@ -1,6 +1,6 @@
 ### Gerar cobertura dos testes
 ```
-go test --coverprofile coverage.txt
+go test ./... --coverprofile coverage.txt
 ```
 
 ```
