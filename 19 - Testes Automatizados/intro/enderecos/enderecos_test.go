@@ -1,6 +1,8 @@
-package enderecos
+package enderecos_test
 
 import (
+	// . "intro/enderecos" # colocando o "." indica que é o pacote principal, não precisaria colocar "enderecos." antes das funcoes
+	"intro/enderecos"
 	"testing"
 )
 
@@ -8,7 +10,7 @@ func TestCheckTipoEndereco(t *testing.T) {
 	fakeEndereco := "Rua teste"
 	expected := "Rua"
 
-	actual := CheckTipoEndereco(fakeEndereco)
+	actual := enderecos.CheckTipoEndereco(fakeEndereco)
 
 	if actual != expected {
 		t.Errorf("CheckTipoEndereco fail. Actual: %s / Expected: %s", actual, expected)
@@ -32,7 +34,7 @@ func TestCheckTipoEnderecosComStruct(t *testing.T) {
 	}
 
 	for _, mock := range mocks {
-		actual := CheckTipoEndereco(mock.enderecoMock)
+		actual := enderecos.CheckTipoEndereco(mock.enderecoMock)
 
 		if actual != mock.expected {
 			t.Errorf("CheckTipoEndereco fail. Actual: %s / Expected: %s", actual, mock.expected)
