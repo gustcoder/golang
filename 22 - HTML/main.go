@@ -16,7 +16,6 @@ type User struct {
 }
 
 func FileExists(fileName string) bool {
-	fmt.Println("Filename: " + fileName)
 	_, err := os.Stat(fileName)
 
 	return err == nil
