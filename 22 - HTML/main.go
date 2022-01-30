@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 )
 
 var templates *template.Template
@@ -14,7 +15,18 @@ type User struct {
 	Email string
 }
 
+func FileExists(fileName string) bool {
+	fmt.Println("Filename: " + fileName)
+	_, err := os.Stat(fileName)
+
+	return err == nil
+}
+
 func getTemplates(templateName string) *template.Template {
+	if !FileExists(templateName) {
+		log.Fatal("Template informed does not exists!")
+	}
+
 	templates = template.Must(template.ParseGlob(templateName))
 
 	return templates
