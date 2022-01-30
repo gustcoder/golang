@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBook</title>
+</head>
+
+<style type="text/css">
+    body {
+        font-family: 'Courier New', Courier, monospace;
+    }
+    h2 {
+        color: gray;
+    }
+</style>
+<body>
+    <h2>Seja bem-vindo(a) {{ .Name }}</h2>
+
+    <button id="btnCheckEmail">Check E-mail</button>
+    <input hidden id="userEmail" value="{{ .Email }}">
+
+    <script>
+        let checkEmail
+
+        checkEmail = document.getElementById("btnCheckEmail")
+
+        checkEmail.onclick = function() {
+            alert("{{ .Email }}")
+        }
+
+    </script>
+</body>
+</html>
