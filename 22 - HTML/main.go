@@ -44,7 +44,7 @@ func home(rw http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/home", home)
+	http.HandleFunc("/", home)
 
 	fmt.Println("Runnning server at port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", nil))
