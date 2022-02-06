@@ -57,7 +57,7 @@ func NewUser(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//fmt.Println(user)
+	fmt.Println(user) // including response to server
 	rw.WriteHeader(http.StatusCreated)
 	rw.Write(
 		[]byte(
