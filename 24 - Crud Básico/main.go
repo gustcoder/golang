@@ -13,6 +13,7 @@ func main() {
 	router := mux.NewRouter()
 
 	// rotas
+	router.HandleFunc("/users", services.GetUsers).Methods(http.MethodGet)
 	router.HandleFunc("/users", services.NewUser).Methods(http.MethodPost)
 
 	fmt.Println("Listening on port 5000...")

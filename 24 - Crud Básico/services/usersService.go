@@ -5,12 +5,52 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
 type User struct {
 	Nome  string `json:"nome"`
 	Email string `json:"email"`
+}
+
+func GetUsers(rw http.ResponseWriter, r *http.Request) {
+	db, err := db.Connect()
+	if err != nil {
+		rw.Write([]byte("Error connecting database"))
+		return
+	}
+	defer db.Close()
+
+	statement, err := db.Prepare("SELECT * FROM usuarios")
+
+	if err != nil {
+		rw.Write([]byte("Error on Prepare statement"))
+		return
+	}
+	defer db.Close()
+
+	usersList, err := statement.Query()
+	if err != nil {
+		rw.Write([]byte("Error on Select"))
+		return
+	}
+
+	for usersList.Next() {
+		var user User
+		var id int
+
+		if err := usersList.Scan(&id, &user.Nome, &user.Email); err != nil {
+			log.Fatal(err)
+		}
+
+		userJson, err := json.Marshal(user)
+		if err != nil {
+			log.Fatal("Error creating users list Json")
+		}
+
+		rw.Write(userJson)
+	}
 }
 
 func NewUser(rw http.ResponseWriter, r *http.Request) {
