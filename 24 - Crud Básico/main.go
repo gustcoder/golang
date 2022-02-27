@@ -14,6 +14,7 @@ func main() {
 
 	// rotas
 	router.HandleFunc("/users", services.GetUsers).Methods(http.MethodGet)
+	router.HandleFunc("/users/{id}", services.GetUser).Methods(http.MethodGet)
 	router.HandleFunc("/users", services.NewUser).Methods(http.MethodPost)
 
 	fmt.Println("Listening on port 5000...")
