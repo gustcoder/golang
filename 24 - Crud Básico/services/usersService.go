@@ -48,25 +48,25 @@ func GetUser(rw http.ResponseWriter, r *http.Request) {
 		ResponseError(rw, "Error converting ID to int")
 	}
 
-	if err := json.NewEncoder(rw).Encode(ID); err != nil {
-		ResponseError(rw, "Error getting ID")
-	}
-
 	db, err := db.Connect()
 	if err != nil {
 		ResponseError(rw, "Error connecting database")
 	}
 	defer db.Close()
 
-	//userInfo, err := db.Query("SELECT * FROM usuarios WHERE id = ?")
+	userInfo, err := db.Query("SELECT * FROM usuarios WHERE id = ?", ID)
+	if err != nil {
+		ResponseError(rw, "Error on getting user ID")
+	}
 
-	// var user User
-	// if err := json.Unmarshal(request, &user); err != nil {
-	// 	rw.Write([]byte("Error on Getting Request"))
-	// 	return
-	// }
+	var user User
+	if userInfo.Next() {
+		if err := userInfo.Scan(&user.ID, &user.Nome, &user.Email); err != nil {
+			ResponseError(rw, "Error scanning userInfo")
+		}
+	}
 
-	//userInfo, err := db.Query("SELECT * FROM usuarios WHERE id = ?")
+	ResponseOK(rw, "Error on show userInfo", user)
 }
 
 func GetUsers(rw http.ResponseWriter, r *http.Request) {
