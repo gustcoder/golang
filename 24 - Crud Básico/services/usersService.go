@@ -158,3 +158,41 @@ func NewUser(rw http.ResponseWriter, r *http.Request) {
 		),
 	)
 }
+
+func UpdateUser(rw http.ResponseWriter, r *http.Request) {
+	parameters := mux.Vars(r)
+
+	ID, err := strconv.ParseUint(parameters["id"], 10, 32)
+	if err != nil {
+		ResponseError(rw, "Error on Update", http.StatusInternalServerError)
+	}
+
+	request, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		ResponseError(rw, "Error reading UpdateUser request body", http.StatusInternalServerError)
+	}
+
+	var user User
+	if err := json.Unmarshal(request, &user); err != nil {
+		ResponseError(rw, "Error converting User to struct", http.StatusInternalServerError)
+	}
+
+	db, err := db.Connect()
+	if err != nil {
+		ResponseError(rw, "Error connecting database", http.StatusInternalServerError)
+	}
+	defer db.Close()
+
+	statement, err := db.Prepare("UPDATE usuarios SET nome = ?, email = ? WHERE id = ?")
+
+	if err != nil {
+		ResponseError(rw, "Error on Prepare statement", http.StatusInternalServerError)
+	}
+	defer db.Close()
+
+	if _, err := statement.Exec(user.Nome, user.Email, ID); err != nil {
+		ResponseError(rw, "Error on Update", http.StatusInternalServerError)
+	}
+
+	rw.WriteHeader(http.StatusNoContent)
+}
