@@ -6,6 +6,10 @@ func main() {
 	var variavel1 string = "Variavel 1"
 	fmt.Println(variavel1)
 
+	var variavel15 string
+	variavel15 = "Variavel 1,5"
+	fmt.Println(variavel15)
+
 	variavel2 := "Variavel 2"
 	fmt.Println(variavel2)
 
