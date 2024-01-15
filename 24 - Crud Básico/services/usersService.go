@@ -44,6 +44,10 @@ func ConnectDatabase() (*sql.DB, string) {
 	return db, ""
 }
 
+func ShowHome(rw http.ResponseWriter, r *http.Request) {
+	ResponseOK(rw, "Some error was found!", "It works!")
+}
+
 func GetUser(rw http.ResponseWriter, r *http.Request) {
 	request := mux.Vars(r)
 
