@@ -13,6 +13,7 @@ func main() {
 	router := mux.NewRouter()
 
 	// rotas
+	router.HandleFunc("/", services.ShowHome).Methods(http.MethodGet)
 	router.HandleFunc("/users", services.GetUsers).Methods(http.MethodGet)
 	router.HandleFunc("/users", services.NewUser).Methods(http.MethodPost)
 	router.HandleFunc("/users/{id}", services.GetUser).Methods(http.MethodGet)
